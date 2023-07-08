@@ -57,11 +57,13 @@ const LoginForm: React.FC = () => {
       let password = formState.password;
 
       try {
-        console.log(isLoading);
+        // get login deets
         const res = await login({ email, password }).unwrap();
-        console.log("step 2");
+        // save them
         dispatch(setCredentials({ ...res }));
+        // go to home page
         navigate("/");
+        // tell user
         toast.success("Login Successful");
       } catch (err: any) {
         toast.error(err?.data?.message || err.error);
@@ -139,6 +141,7 @@ const LoginForm: React.FC = () => {
         <button
           className="py-1 px-1 ml-2 appearance-none"
           onClick={() => setShowPassword(!showPassword)}
+          type="button"
         >
           {!showPassword ? (
             <PiEyeClosedDuotone size={20} />

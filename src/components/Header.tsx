@@ -33,15 +33,13 @@ const Header: React.FC = () => {
   const handleLogout = async () => {
     console.log("button clicked");
     try {
-      console.log("request sent");
-      // --
-      const res = await logoutApiCall();
-      console.log("Request: ");
-      console.log(res);
-      // --
-      console.log("Running display");
+      // send log out api call
+      await logoutApiCall();
+      // clear local storage
       dispatch(logout());
+      //back to homepage
       navigate("/");
+      //tell user
       toast.success("You're Logged Out");
     } catch (err: any) {
       toast.error(err?.data?.message || err.error);
