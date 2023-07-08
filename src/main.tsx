@@ -20,6 +20,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import PageNotFound from "./pages/PageNotFound.tsx";
+import { Profile } from "./pages/Profile.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,9 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/:id" element={<Dashboard />} />
+      <Route path="/profile" element={<Profile />} />
+      {/* Page not found */}
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
