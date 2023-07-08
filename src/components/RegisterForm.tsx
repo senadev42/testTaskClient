@@ -1,9 +1,26 @@
 import React, { useEffect, useState } from "react";
 
 import { PiEyeClosedDuotone, PiEyeDuotone } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+//visual components
+import { toast } from "react-toastify";
+import Loader from "../components/Loader";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { useRegisterMutation } from "../slices/usersApiSlice";
+import { setCredentials } from "../slices/authSlice";
+import { RootState } from "../store";
 
 const RegisterForm: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [register, { isLoading }] = useRegisterMutation();
+
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -32,10 +49,28 @@ const RegisterForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add code to submit the form
     if (validateForm()) {
+      //create body
+      let name = formState.username;
+      let email = formState.email;
+      let password = formState.password;
+
+      try {
+        //send register request
+        const res = await register({ name, email, password }).unwrap();
+        //set token to local storage
+        dispatch(setCredentials({ ...res }));
+        // go to home page
+        navigate("/");
+        // tell user
+        toast.success("Registered successfully");
+      } catch (err: any) {
+        toast.error(err?.data?.message || err.error);
+      }
+
       // Add code to submit the form
       console.log("is valid");
       alert("Good to go");
@@ -221,7 +256,7 @@ const RegisterForm: React.FC = () => {
               className="bg-teal-500 hover:bg-teal-600 text-white rounded-sm font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Register
+              {isLoading ? <Loader /> : "Register"}
             </button>
           </div>{" "}
           <div>

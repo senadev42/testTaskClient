@@ -14,13 +14,13 @@ import { setCredentials } from "../slices/authSlice";
 import { RootState } from "../store";
 
 const LoginForm: React.FC = () => {
+  //redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [login, { isLoading }] = useLoginMutation();
-
   const { userInfo } = useSelector((state: RootState) => state.auth);
 
+  //navigate out if anyone comes here while logged in
   useEffect(() => {
     if (userInfo) {
       navigate("/");
@@ -36,6 +36,9 @@ const LoginForm: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    validateForm();
+  }, [formState]);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,30 +47,26 @@ const LoginForm: React.FC = () => {
       ...prevState,
       [name]: value,
     }));
-    validateForm();
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Add code to submit the form
-    if (true) {
-      // Add code to submit the form
-      console.log("Form valid");
-      let email = formState.email;
-      let password = formState.password;
 
-      try {
-        // get login deets
-        const res = await login({ email, password }).unwrap();
-        // save them
-        dispatch(setCredentials({ ...res }));
-        // go to home page
-        navigate("/");
-        // tell user
-        toast.success("Login Successful");
-      } catch (err: any) {
-        toast.error(err?.data?.message || err.error);
-      }
+    // Add code to submit the form
+    let email = formState.email;
+    let password = formState.password;
+
+    try {
+      // send login request and recieve userinfo
+      const res = await login({ email, password }).unwrap();
+      // save them
+      dispatch(setCredentials({ ...res }));
+      // go to home page
+      navigate("/");
+      // tell user
+      toast.success("Login Successful");
+    } catch (err: any) {
+      toast.error(err?.data?.message || err.error);
     }
   };
 
