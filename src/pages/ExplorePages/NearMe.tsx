@@ -38,6 +38,46 @@ const NearME = () => {
 
           {/* Cities Near You */}
           {/* expects back a list of cities */}
+          {cityData && (
+            <div className="mt-4 px-6">
+              <table className="table-auto w-full">
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th className="px-4 py-2 text-left font-semibold text-gray-700">
+                      City Name
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold text-gray-700">
+                      Distance
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold text-gray-700">
+                      Region
+                    </th>
+                    <th className="px-4 py-2 text-left font-semibold text-gray-700">
+                      Population
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white">
+                  {cityData.map((city) => (
+                    <tr key={city.cityname} className="hover:bg-gray-100">
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.cityname}
+                      </td>
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.distance} km
+                      </td>
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.region}
+                      </td>
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.population}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
 
           {/* Places Near You */}
           {/* expects back a list of places  */}
