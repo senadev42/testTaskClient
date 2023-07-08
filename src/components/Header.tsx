@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 
+import { useLocation } from "react-router-dom";
+
 //global state
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -76,7 +78,7 @@ const Header: React.FC = () => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         Welcome {userInfo?.name}
-        <RiArrowDropDownLine className="m-2  mt-3" />
+        <RiArrowDropDownLine className=" text-2xl m-2  mt-3" />
       </button>
 
       {isDropdownOpen && (
@@ -133,6 +135,12 @@ const Header: React.FC = () => {
       </div>
     </div>
   );
+
+  //check if location contains /dashboard and if so return <></>
+
+  if (location.pathname.includes("/dashboard")) {
+    return <></>;
+  }
 
   return (
     <nav className="bg-gray-800">
