@@ -1,9 +1,7 @@
 import { apiSlice } from './apiSlice';
 
-
 //The explore url
 const EXPLORE_URL = '/api/explore';
-
 
 export const exploreApiSlice: any = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -16,4 +14,4 @@ export const exploreApiSlice: any = apiSlice.injectEndpoints({
         })
     }),
 });
-export const { nearbyCitiesMutation } = exploreApiSlice;
+export const { useNearbyCitiesMutation } = exploreApiSlice;
