@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+
 //react hero section
 const Hero: React.FC = () => {
+  const { userInfo } = useSelector((state: RootState) => state.auth);
   return (
     //black border
     <section className="relative flex items-center w-full bg-white md:h-screen">
@@ -24,23 +29,38 @@ const Hero: React.FC = () => {
                   </p>
                 </div>
                 <div className="flex items-center justify-center w-full pt-8 mx-auto lg:justify-start md:pt-6">
-                  <Link to="/register">
-                    <button
-                      className="bg-teal-500 border-teal-500 border-2 hover:bg-teal-600 text-white font-medium py-2 px-4 mr-2"
-                      type="submit"
-                    >
-                      Register
-                    </button>
-                  </Link>
-                  <Link to="/login">
-                    {" "}
-                    <button
-                      className="border-2 border-teal-500 hover:bg-teal-600 text-teal-500 font-medium py-2 px-4"
-                      type="submit"
-                    >
-                      Login
-                    </button>
-                  </Link>
+                  {!userInfo ? (
+                    <>
+                      {" "}
+                      <Link to="/register">
+                        <button
+                          className="bg-teal-500 border-teal-500 border-2 hover:bg-teal-600 text-white font-medium py-2 px-4 mr-2"
+                          type="submit"
+                        >
+                          Register
+                        </button>
+                      </Link>
+                      <Link to="/login">
+                        {" "}
+                        <button
+                          className="border-2 border-teal-500 hover:bg-teal-600 text-teal-500 font-medium py-2 px-4"
+                          type="submit"
+                        >
+                          Login
+                        </button>
+                      </Link>
+                    </>
+                  ) : (
+                    <Link to="/dashboard">
+                      <button
+                        type="button"
+                        className="rounded-full border-2 py-2 px-6 text-teal-200 bg-black"
+                        data-te-ripple-init
+                      >
+                        Go To the App
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
