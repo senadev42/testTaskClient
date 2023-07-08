@@ -1,30 +1,54 @@
 import { Link } from "react-router-dom";
 
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 //global state
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
 //store
 import { RootState } from "../store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { toast } from "react-toastify";
 
 const Header: React.FC = () => {
+  useEffect(() => {
+    setIsDropdownOpen(false);
+    setIsLoggedoutDropdownOpen(false);
+  }, []);
+
+  //redux
   const { userInfo } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [logoutApiCall, { isLoading }] = useLogoutMutation();
 
+  //both sets of drop downs
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoggedoutDropdownOpen, setIsLoggedoutDropdownOpen] = useState(false);
 
-  const handleClick = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const handleLogout = async () => {
+    console.log("button clicked");
+    try {
+      console.log("request sent");
+      // --
+      const res = await logoutApiCall();
+      console.log("Request: ");
+      console.log(res);
+      // --
+      console.log("Running display");
+      dispatch(logout());
+      navigate("/");
+      toast.success("You're Logged Out");
+    } catch (err: any) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
   const Dropdown = (
-    // const dispatch = useDispatch();
-
-    // const handleLogout = () => {
-    //   dispatch(logout());
-    // };
-
     <div className="relative z-10">
       <button
         type="button"
@@ -53,7 +77,8 @@ const Header: React.FC = () => {
             <button
               type="button"
               className="block px-5 py-2 text-sm text-gray-700   hover:text-teal-500"
-              onClick={() => alert("TODO: Implement logout page")}
+              onClick={handleLogout}
+              disabled={isLoading}
             >
               Logout
             </button>
