@@ -36,9 +36,14 @@ export const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  useEffect(() => {
-    validateForm();
-  }, [formState]);
+  // useEffect(() => {
+  //   validateForm();
+  // }, [
+  //   formState.username,
+  //   formState.email,
+  //   formState.password,
+  //   formState.confirmPassword,
+  // ]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

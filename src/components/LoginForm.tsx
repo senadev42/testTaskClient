@@ -38,7 +38,7 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     validateForm();
-  }, [formState]);
+  }, [formState.email, formState.password]);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
