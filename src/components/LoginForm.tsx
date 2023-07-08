@@ -1,13 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { PiEyeClosedDuotone, PiEyeDuotone } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+//auth slice
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../slices/usersApiSlice";
+import { setCredentials } from "../slices/authSlice";
+
+//store
+import { RootState } from "../store";
 
 const LoginForm: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
   const [formState, setFormState] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
     errors: {
       email: "",
       password: "",
@@ -25,12 +46,24 @@ const LoginForm: React.FC = () => {
     validateForm();
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add code to submit the form
-    if (validateForm()) {
+    if (true) {
       // Add code to submit the form
-      console.log("is valid");
+      console.log("Form valid");
+      let email = formState.email;
+      let password = formState.password;
+
+      try {
+        const res = await login({ email, password }).unwrap();
+        console.log("step 2");
+        dispatch(setCredentials({ ...res }));
+        navigate("/");
+        toast.success("Login Successful");
+      } catch (err: any) {
+        toast.error(err?.data?.message || err.error);
+      }
     }
   };
 
@@ -134,7 +167,7 @@ const LoginForm: React.FC = () => {
               className="bg-teal-500 hover:bg-teal-600 text-white rounded-sm font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Register
+              Login
             </button>
           </div>{" "}
           <div>
