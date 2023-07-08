@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+//import React, { useState } from "react";
 
 //import Link
 import { Link } from "react-router-dom";
