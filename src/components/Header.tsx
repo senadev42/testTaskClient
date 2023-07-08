@@ -1,9 +1,88 @@
-//import React, { useState } from "react";
-
-//import Link
 import { Link } from "react-router-dom";
 
+import { RiArrowDropDownLine } from "react-icons/ri";
+
+//global state
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+//store
+import { RootState } from "../store";
+import { useState } from "react";
+
 const Header: React.FC = () => {
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const Dropdown = (
+    // const dispatch = useDispatch();
+
+    // const handleLogout = () => {
+    //   dispatch(logout());
+    // };
+
+    <div className="relative z-10">
+      <button
+        type="button"
+        className="text-white  rounded-sm flex flex-row items-center text-sm px-2"
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+      >
+        Welcome {userInfo?.name}
+        <RiArrowDropDownLine className="m-2  mt-3" />
+      </button>
+
+      {isDropdownOpen && (
+        <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div
+            className=""
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <button
+              type="button"
+              className=" w-full  py-2 px-5  text-sm text-gray-700  hover:text-teal-500"
+              onClick={() => alert("TODO: Implement Profile page")}
+            >
+              Profile
+            </button>
+            <button
+              type="button"
+              className="block px-5 py-2 text-sm text-gray-700   hover:text-teal-500"
+              onClick={() => alert("TODO: Implement logout page")}
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const loggedout = (
+    <div className="hidden md:block">
+      <div className="ml-4 flex items-center">
+        <Link to="/login">
+          {" "}
+          <p className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+            Login
+          </p>
+        </Link>
+
+        <Link to="/register">
+          {" "}
+          <p className="bg-white text-gray-800 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+            Register
+          </p>{" "}
+        </Link>
+      </div>
+    </div>
+  );
+
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,29 +93,8 @@ const Header: React.FC = () => {
               <p className="text-white font-bold text-xl">wanderlust</p>
             </Link>
           </div>
-          <div className="hidden md:block">
-            <div className="ml-4 flex items-center">
-              {/* <a
-                href="#"
-                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Welcome
-              </a> */}
-              <Link to="/login">
-                {" "}
-                <p className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                  Login
-                </p>
-              </Link>
 
-              <Link to="/register">
-                {" "}
-                <p className="bg-white text-gray-800 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                  Register
-                </p>{" "}
-              </Link>
-            </div>
-          </div>
+          {userInfo == null ? loggedout : Dropdown}
         </div>
       </div>
     </nav>
