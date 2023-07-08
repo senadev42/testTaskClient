@@ -179,7 +179,7 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="max-w-xs w-full bg-white shadow-lg shadow-teal-100 rounded-md p-8">
+      <div className="max-w-xs w-full bg-white p-8">
         <form onSubmit={handleSubmit}>
           {
             //Username

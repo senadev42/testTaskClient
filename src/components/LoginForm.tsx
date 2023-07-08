@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 
 import { PiEyeClosedDuotone, PiEyeDuotone } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
-//auth slice
+//visual components
+import { toast } from "react-toastify";
+import Loader from "../components/Loader";
+
+//redux
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
-
-//store
 import { RootState } from "../store";
 
 const LoginForm: React.FC = () => {
@@ -168,7 +169,7 @@ const LoginForm: React.FC = () => {
               className="bg-teal-500 hover:bg-teal-600 text-white rounded-sm font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Login
+              {isLoading ? <Loader /> : "Login"}
             </button>
           </div>{" "}
           <div>
