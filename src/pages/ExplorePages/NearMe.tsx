@@ -1,7 +1,28 @@
 import React, { useEffect, useState } from "react";
 
-const NearME = () => {
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { useNearbyCitiesMutation } from "../../slices/exploreApiSlice";
+
+import { RootState } from "../../store";
+
+type CityNearMe = {
+  cityname: string;
+  countryCode: string;
+  region: string;
+  population: number;
+  distance: number;
+};
+
+const NearMe = () => {
   const [position, setPosition] = useState<string | null>(null);
+  const [geolocationAvailable, setGeolocationAvailable] = useState(false);
+
+  //cityData
+  const [cityData, setCityData] = useState<CityNearMe[]>();
+
+  //state
+  const [nearbyCities, { isLoading }] = useNearbyCitiesMutation();
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -18,10 +39,25 @@ const NearME = () => {
           console.error(err);
         }
       );
+      setGeolocationAvailable(true);
     } else {
       console.log("Geolocation is not available");
+      setGeolocationAvailable(false);
     }
   }, []);
+
+  const fetchCities = async () => {
+    try {
+      let _id = "23456";
+      let coords = "+9.022700+38.746800";
+
+      const res = await nearbyCities({ _id, coords }).unwrap();
+      console.log(res);
+      setCityData(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="flex flex-row  h-full">
@@ -30,9 +66,28 @@ const NearME = () => {
           {/* Current Position */}
           <div className="bg-red-100 p-10">
             {position ? (
-              <p>Current position: {position}</p>
+              <p> debug: Curr_position: {position}</p>
             ) : (
               <p>Retrieving current position...</p>
+            )}
+          </div>
+          {/* What's near me button */}
+          <div>
+            <button
+              className={`mt-4 border-2 border-teal-200 px-4 py-2  ${
+                geolocationAvailable
+                  ? "hover:bg-teal-200"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+              onClick={fetchCities}
+              disabled={!geolocationAvailable}
+            >
+              What's Near Me?
+            </button>
+            {!geolocationAvailable ? (
+              <p className="text-xs mt-2">You need to turn on location 😢 </p>
+            ) : (
+              " "
             )}
           </div>
 
@@ -87,4 +142,4 @@ const NearME = () => {
   );
 };
 
-export default NearME;
+export default NearMe;
