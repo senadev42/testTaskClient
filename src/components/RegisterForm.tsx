@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { PiEyeClosedDuotone, PiEyeDuotone } from "react-icons/pi";
 import { Link } from "react-router-dom";
@@ -20,6 +20,10 @@ const RegisterForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  useEffect(() => {
+    validateForm();
+  }, [formState]);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState((prevState) => ({
@@ -34,6 +38,9 @@ const RegisterForm: React.FC = () => {
     if (validateForm()) {
       // Add code to submit the form
       console.log("is valid");
+      alert("Good to go");
+    } else {
+      alert("validate didn't pass");
     }
   };
 
@@ -83,7 +90,7 @@ const RegisterForm: React.FC = () => {
   const UserNameInput = (
     <div className="mb-4">
       <input
-        className={`shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
           formState.errors.username ? "border-red-500" : ""
         }`}
         id="username"
@@ -107,7 +114,7 @@ const RegisterForm: React.FC = () => {
           Email
         </label> */}
       <input
-        className={`shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`shadow appearance-none border rounded w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
           formState.errors.email ? "border-red-500" : ""
         }`}
         id="email"
@@ -133,7 +140,7 @@ const RegisterForm: React.FC = () => {
         </label> */}
       <div className=" flex flex-row justify-start items-center">
         <input
-          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="password"
           name="password"
           type={showPassword ? "text" : "password"}
@@ -142,8 +149,9 @@ const RegisterForm: React.FC = () => {
           onChange={handleInputChange}
         />
         <button
-          className="py-1 px-1 ml-2 appearance-none"
+          className="py-1 px-1 ml-2"
           onClick={togglePasswordVisibility}
+          type="button"
         >
           {!showPassword ? (
             <PiEyeClosedDuotone size={20} />
@@ -152,9 +160,16 @@ const RegisterForm: React.FC = () => {
           )}
         </button>
       </div>
+      {formState.errors.password && (
+        <p className="text-red-500 text-xs italic">
+          {formState.errors.password}
+        </p>
+      )}
+
+      {/* Confirm Password */}
       <div className=" flex flex-row justify-start items-center mt-2">
         <input
-          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="confirm-password"
           name="confirmPassword"
           type={showPassword ? "text" : "password"}
@@ -166,6 +181,7 @@ const RegisterForm: React.FC = () => {
         <button
           className="py-1 px-1 ml-2 appearance-none"
           onClick={togglePasswordVisibility}
+          type="button"
         >
           {!showPassword ? (
             <PiEyeClosedDuotone size={20} />
@@ -174,6 +190,11 @@ const RegisterForm: React.FC = () => {
           )}
         </button>
       </div>
+      {formState.errors.confirmPassword && (
+        <p className="text-red-500 text-xs italic">
+          {formState.errors.confirmPassword}
+        </p>
+      )}
     </div>
   );
 
