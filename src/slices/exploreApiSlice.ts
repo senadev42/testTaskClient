@@ -16,4 +16,4 @@ export const exploreApiSlice: any = apiSlice.injectEndpoints({
         })
     }),
 });
-export const { nearbyCities } = exploreApiSlice;
+export const { nearbyCitiesMutation } = exploreApiSlice;
