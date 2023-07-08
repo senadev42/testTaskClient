@@ -18,6 +18,8 @@ import { Provider } from "react-redux";
 import HomePage from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
+import PageNotFound from "./pages/PageNotFound.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,8 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<PageNotFound />} />
     </Route>
   )
 );
