@@ -56,6 +56,7 @@ const LoginForm: React.FC = () => {
       let password = formState.password;
 
       try {
+        console.log(isLoading);
         const res = await login({ email, password }).unwrap();
         console.log("step 2");
         dispatch(setCredentials({ ...res }));
