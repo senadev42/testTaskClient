@@ -45,10 +45,10 @@ const Dashboard = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex flex-row bg-green-200 h-screen ">
+    <div className="flex flex-row  h-screen ">
       {/* Tabs */}
 
-      <nav className=" space-y-1 bg-white w-[20%] flex flex-col justify-between pt-4 pl-4">
+      <nav className=" space-y-1 bg-white w-[30%] md:w-[20%] flex flex-col justify-between pt-4 pl-4">
         {/* the top part */}
         <div>
           <div className="flex-shrink-0 pl-4 py-4 ">
@@ -57,6 +57,9 @@ const Dashboard = () => {
               <p className="text-slate-700 font-bold text-xl">wanderlust</p>
             </Link>
           </div>{" "}
+          {/* 
+          Explore Tab 
+          */}
           <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
             Explore
           </p>
@@ -85,7 +88,10 @@ const Dashboard = () => {
               </a>
             </li>
           </ul>
-          <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
+          {/*
+           Tools
+           */}
+          {/* <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
             Tools
           </p>
           <ul>
@@ -124,7 +130,7 @@ const Dashboard = () => {
                 <span className="ml-4">TLD</span>
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         {/* the bottom part */}
