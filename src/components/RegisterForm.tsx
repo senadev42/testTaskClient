@@ -39,7 +39,14 @@ const RegisterForm: React.FC = () => {
 
   useEffect(() => {
     validateForm();
-  }, [formState]);
+  }, [
+    [
+      formState.username,
+      formState.email,
+      formState.password,
+      formState.confirmPassword,
+    ],
+  ]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
