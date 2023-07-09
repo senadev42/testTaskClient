@@ -22,42 +22,31 @@ type City = {
 };
 
 const Search = () => {
+  //Autocomplete Handler
   const iso3166Options = iso3166Data.map((item, index) => ({
     value: item.country,
     label: item.country.toUpperCase(),
     index: index,
   }));
-
   const [selectedOption, setSelectedOption] = useState(iso3166Options[0]);
-
   const handleSelectChange = (selectedOption: any) => {
     setSelectedOption(selectedOption);
     setCountry(selectedOption.value);
   };
 
-  //cityData
-  const [cityData, setCityData] = useState<City[]>();
-
-  //state
-  const [nearbyCities, { isLoading }] = useNearbyCitiesMutation();
-
-  const SORT_OPTIONS = ["cityname", "distance", "region", "population"];
-  //sort
-  const [sortOption, setSortOption] = useState(SORT_OPTIONS[0]);
-
-  const sortedCities = [];
-
-  //accepts options: sort by city name, distance, region and population
-  //sorts by selected option and returns
-  // function sortCitiesBy(param) {
-  //   return;
-  // }
+  //Submit Handler
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (selectedOption) {
+      alert(`Handling Country submit ${selectedOption.value}`);
+    }
+  };
 
   const [country, setCountry] = useState("");
 
   const searchCounty = (
     <div className=" mb-12  px-12 lg:px-16 max-w-7xl">
-      <div className=" mx-auto bg-gradient-to-t from-gray-100 to-transparent  p-20 sm:p-10 rounded-3xl shadow-xl shadow-teal-100">
+      <div className=" mx-auto   p-20 sm:p-10 rounded-xl shadow-2xl shadow-teal-100">
         {/* title */}
         <div className="w-full">
           <p className="text-xl sm:text-4xl font-medium  text-center tracking-tighter text-black mb-4 ">
@@ -69,13 +58,7 @@ const Search = () => {
           <form
             className=" items-center max-w-lg"
             action=""
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert(
-                "Handling Country submit " +
-                  iso3166Data[selectedOption.index].isoCode
-              );
-            }}
+            onSubmit={handleSubmit}
           >
             <div className="flex flex-col w-full gap-x-6 mt-3  md:flex-row sm:items-center sm:justify-center">
               {/* City Search */}
