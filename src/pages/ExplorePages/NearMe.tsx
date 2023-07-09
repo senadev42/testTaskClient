@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNearbyCitiesMutation } from "../../slices/exploreApiSlice";
 
+//visual components
+import { toast } from "react-toastify";
+
 import { RootState } from "../../store";
 
 type CityNearMe = {
@@ -24,7 +27,11 @@ const NearMe = () => {
   //state
   const [nearbyCities, { isLoading }] = useNearbyCitiesMutation();
 
-  useEffect(() => {
+  const SORT_OPTIONS = ["cityname", "distance", "region", "population"];
+  //sort
+  const [sortOption, setSortOption] = useState(SORT_OPTIONS[0]);
+
+  const fetchCities = async () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -44,20 +51,37 @@ const NearMe = () => {
       console.log("Geolocation is not available");
       setGeolocationAvailable(false);
     }
-  }, []);
 
-  const fetchCities = async () => {
     try {
       let _id = "23456";
-      let coords = "+9.022700+38.746800";
+      let coords = "+32.109333+34.855499";
+      //let coords = position;
+
+      console.log(coords);
+      console.log(position);
 
       const res = await nearbyCities({ _id, coords }).unwrap();
+
+      console.log;
       console.log(res);
       setCityData(res);
-    } catch (err) {
-      console.log(err);
+
+      toast.success("Fetched Cities Near You");
+
+      toast.success(position);
+      console.log(res);
+    } catch (err: any) {
+      toast.error(err.message);
     }
   };
+
+  const sortedCities = [];
+
+  //accepts options: sort by city name, distance, region and population
+  //sorts by selected option and returns
+  // function sortCitiesBy(param) {
+  //   return;
+  // }
 
   return (
     <div className="flex flex-row  h-full">
@@ -74,21 +98,16 @@ const NearMe = () => {
           {/* What's near me button */}
           <div>
             <button
-              className={`mt-4 border-2 border-teal-200 px-4 py-2  ${
-                geolocationAvailable
-                  ? "hover:bg-teal-200"
-                  : "opacity-50 cursor-not-allowed"
-              }`}
+              className={`mt-4 border-2 border-teal-200 px-4 py-2 hover:bg-teal-200`}
               onClick={fetchCities}
-              disabled={!geolocationAvailable}
             >
               What's Near Me?
             </button>
-            {!geolocationAvailable ? (
+            {/* {!geolocationAvailable ? (
               <p className="text-xs mt-2">You need to turn on location 😢 </p>
             ) : (
               " "
-            )}
+            )} */}
           </div>
 
           {/* Cities Near You */}
@@ -99,7 +118,7 @@ const NearMe = () => {
                 <thead className="bg-gray-200">
                   <tr>
                     <th className="px-4 py-2 text-left font-semibold text-gray-700">
-                      City Name
+                      <button>City Name</button>
                     </th>
                     <th className="px-4 py-2 text-left font-semibold text-gray-700">
                       Distance
@@ -113,6 +132,22 @@ const NearMe = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white">
+                  {cityData.map((city) => (
+                    <tr key={city.cityname} className="hover:bg-gray-100">
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.cityname}
+                      </td>
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.distance} km
+                      </td>
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.region}
+                      </td>
+                      <td className="px-4 py-2 border border-gray-300">
+                        {city.population}
+                      </td>
+                    </tr>
+                  ))}
                   {cityData.map((city) => (
                     <tr key={city.cityname} className="hover:bg-gray-100">
                       <td className="px-4 py-2 border border-gray-300">
