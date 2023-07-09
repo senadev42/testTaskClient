@@ -4,7 +4,9 @@ import { Profile } from "./Profile";
 import { Link, useLocation } from "react-router-dom";
 import Logout from "../components/Logout";
 
+// Subpages
 import NearMe from "./ExplorePages/NearMe";
+import Search from "./ExplorePages/Search";
 
 const Dashboard = () => {
   const [isdropupopen, setisdropupopen] = useState(false);
@@ -19,9 +21,9 @@ const Dashboard = () => {
       content = <NearMe />;
       break;
 
-    // case "/otherthing":
-    //   content = <OtherThing />;
-    //   break;
+    case "/dashboard/search":
+      content = <Search />;
+      break;
 
     default:
       content = <Profile />;
@@ -30,13 +32,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     switch (location.pathname) {
-      case "/nearme":
+      case "/dashboard/nearme":
         content = <NearMe />;
         break;
 
-      // case "/otherthing":
-      //   content = <OtherThing />;
-      //   break;
+      case "/dashboard/search":
+        content = <Search />;
+        break;
 
       default:
         content = <Profile />;
@@ -48,7 +50,7 @@ const Dashboard = () => {
     <div className="flex flex-row  h-screen ">
       {/* Tabs */}
 
-      <nav className=" space-y-1 bg-white w-[30%] md:w-[20%] flex flex-col justify-between pt-4 pl-4">
+      <nav className=" hidden sm:flex space-y-1 bg-white w-[30%] md:w-[20%] flex flex-col justify-between pt-4 pl-4">
         {/* the top part */}
         <div>
           <div className="flex-shrink-0 pl-4 py-4 ">
@@ -67,7 +69,7 @@ const Dashboard = () => {
             <li>
               <a
                 className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="#"
+                href="/dashboard/search"
               >
                 <span className="ml-4">Search</span>
               </a>
@@ -82,7 +84,7 @@ const Dashboard = () => {
             <li>
               <a
                 className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="#"
+                href="/dashboard/history"
               >
                 <span className="ml-4">History</span>
               </a>
@@ -161,6 +163,7 @@ const Dashboard = () => {
         </div>
       </nav>
 
+      {/* The overflow - Y Tab */}
       <div className="flex-1 h-full overflow-y-auto p-6">
         {content}
         {/* teams */}
