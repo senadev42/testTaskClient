@@ -106,7 +106,7 @@ const LoginForm: React.FC = () => {
           Email
         </label> */}
       <input
-        className={`shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`shadow appearance-none border rounded w-full py-3 px-3 text-gray-700  focus:outline-none focus:shadow-outline ${
           formState.errors.email ? "border-red-500" : ""
         }`}
         id="email"
