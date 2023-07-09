@@ -129,12 +129,12 @@ export const Profile = () => {
   const UserNameInput = (
     <div className="mb-4">
       <input
-        className={`shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`shadow appearance-none border rounded w-[14rem] py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline ${
           formState.errors.username ? "border-red-500" : ""
         }`}
         id="username"
         type="text"
-        placeholder="Username"
+        placeholder={userInfo.name}
         name="username"
         value={formState.username}
         onChange={handleInputChange}
@@ -153,12 +153,12 @@ export const Profile = () => {
             Email
           </label> */}
       <input
-        className={`shadow appearance-none border rounded w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`shadow appearance-none border rounded w-[14rem] py-2 px-3 text-gray-700focus:outline-none focus:shadow-outline ${
           formState.errors.email ? "border-red-500" : ""
         }`}
         id="email"
         type="email"
-        placeholder="Email"
+        placeholder={userInfo.email}
         name="email"
         value={formState.email}
         onChange={handleInputChange}
@@ -179,11 +179,11 @@ export const Profile = () => {
           </label> */}
       <div className=" flex flex-row justify-start items-center">
         <input
-          className="shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded  w-[14rem] py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
           id="password"
           name="password"
           type={showPassword ? "text" : "password"}
-          placeholder="Password"
+          placeholder="New Password"
           value={formState.password}
           onChange={handleInputChange}
         />
@@ -208,11 +208,11 @@ export const Profile = () => {
       {/* Confirm Password */}
       <div className=" flex flex-row justify-start items-center mt-2">
         <input
-          className="shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded  w-[14rem] py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
           id="confirm-password"
           name="confirmPassword"
           type={showPassword ? "text" : "password"}
-          placeholder="Confirm Password"
+          placeholder="Confirm New Password"
           value={formState.confirmPassword}
           onChange={handleInputChange}
           style={{ display: " none !important" }}
@@ -257,21 +257,12 @@ export const Profile = () => {
           {/* Sign in Button */}
           <div className="flex items-center justify-between">
             <button
-              className="bg-teal-400 hover:bg-teal-500 text-white rounded-xs font-bold py-2 px-6 focus:outline-none focus:shadow-outline"
+              className="bg-black hover:bg-teal-500 text-teal-400 rounded-xs font-bold py-2 px-6 focus:outline-none focus:shadow-outline"
               type="submit"
             >
               {isLoading ? <Loader /> : "Update your Profile"}
             </button>
           </div>{" "}
-          <div>
-            <p className="text-start text-xs text-slate-600 my-2">
-              Already have an account?{" "}
-              <Link to="/login" className="text-teal-500">
-                {" "}
-                Login{" "}
-              </Link>
-            </p>
-          </div>
         </form>
       </div>
     </div>
