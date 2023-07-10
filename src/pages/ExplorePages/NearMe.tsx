@@ -44,7 +44,7 @@ const NearMe = () => {
       await navigator.geolocation.getCurrentPosition(
         (pos) => {
           const { latitude, longitude } = pos.coords;
-          console.log(latitude, longitude);
+          //     console.log(latitude, longitude);
 
           setPosition(
             `${latitude >= 0 ? "+" : "-"}${Math.abs(latitude).toFixed(6)}${

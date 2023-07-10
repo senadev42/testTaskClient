@@ -75,7 +75,7 @@ const RegisterForm: React.FC = () => {
         toast.error(err?.data?.message || err.error);
       }
     } else {
-      console.log("validate didn't pass");
+      toast.error("Something went wrong.");
     }
   };
 
