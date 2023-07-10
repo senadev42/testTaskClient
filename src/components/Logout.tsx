@@ -11,7 +11,6 @@ const Logout: React.FC = () => {
   const [logoutApiCall] = useLogoutMutation();
 
   const handleLogout = async () => {
-    console.log("button clicked");
     try {
       // send log out api call
       await logoutApiCall();

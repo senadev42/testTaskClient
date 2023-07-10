@@ -50,7 +50,6 @@ const Header: React.FC = () => {
   }, [dropdownRef]);
 
   const handleLogout = async () => {
-    console.log("button clicked");
     try {
       // send log out api call
       await logoutApiCall();
