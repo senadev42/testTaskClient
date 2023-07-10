@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-import { PiEyeClosedDuotone, PiEyeDuotone } from "react-icons/pi";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 //visual components
 import { toast } from "react-toastify";
@@ -15,13 +12,12 @@ import { RootState } from "../store";
 
 //Profile
 export const Profile = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  //Global State
   const [updateUser, { isLoading }] = useUpdateUserMutation();
-
   const { userInfo } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
 
+  //Local State
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -31,6 +27,7 @@ export const Profile = () => {
     },
   });
 
+  //Handlers
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState((prevState) => ({
@@ -41,19 +38,14 @@ export const Profile = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Add code to submit the form
-
     toast.info("Updating profile");
     if (validateForm()) {
-      //create body
       let name = formState.username;
-
       try {
         //send update request
         const res = await updateUser({ name }).unwrap();
         //set userinfo to local storage
         dispatch(setCredentials({ ...res }));
-
         // tell user
         toast.success("Updated successfully");
       } catch (err: any) {

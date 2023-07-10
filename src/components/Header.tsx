@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { RxHamburgerMenu } from "react-icons/rx";
-
-import { useLocation } from "react-router-dom";
 
 //global state
 import { useSelector, useDispatch } from "react-redux";
