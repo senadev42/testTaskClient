@@ -21,16 +21,23 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import PageNotFound from "./pages/PageNotFound.tsx";
 import { Profile } from "./pages/Profile.tsx";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomePage />} />
+      {/* Public Routes */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/dashboard/:id" element={<Dashboard />} />
-      <Route path="/profile" element={<Profile />} />
+
+      {/* Private Routes */}
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/:id" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+      </Route>
+
       {/* Page not found */}
       <Route path="*" element={<PageNotFound />} />
     </Route>
