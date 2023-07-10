@@ -106,25 +106,30 @@ const History = () => {
                   {/* text parts */}
                   <div className="p-4 border-b border-gray-300">
                     <h2 className="text-xl font-bold mb-2">
-                      {country.countryName} ({country.countryCode})
+                      {country.countryName} | {country.countryCode}
                     </h2>
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                      <div>
-                        <p className="text-gray-700 font-medium">Capital</p>
-                        <p className="text-gray-500">
-                          {country.countryCapital}
-                        </p>
+                    <div className="flex flex-col text-sm gap-2">
+                      {/* blocks */}
+
+                      <div className="flex flex-row justify-between">
+                        <div>
+                          <p className="text-gray-700 font-medium">Capital</p>
+                          <p className="text-gray-500">
+                            {country.countryCapital}
+                          </p>
+                        </div>{" "}
+                        <div>
+                          <p className="text-gray-700 font-medium">
+                            Calling Code
+                          </p>
+                          <p className="text-gray-500">{country.callingCode}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-700 font-medium">Regions</p>
+                          <p className="text-gray-500">{country.numRegions}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-gray-700 font-medium">
-                          Calling Code
-                        </p>
-                        <p className="text-gray-500">{country.callingCode}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-700 font-medium">Regions</p>
-                        <p className="text-gray-500">{country.numRegions}</p>
-                      </div>
+
                       <div>
                         <p className="text-gray-700 font-medium">
                           Last Searched

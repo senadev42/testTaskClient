@@ -36,9 +36,10 @@ const LoginForm: React.FC = () => {
     },
   });
 
-  useEffect(() => {
-    validateForm();
-  }, [formState.email, formState.password]);
+  // useEffect(() => {
+  //   validateForm();
+  // }, [formState.email, formState.password]);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,21 +53,23 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Add code to submit the form
-    let email = formState.email;
-    let password = formState.password;
+    if (validateForm()) {
+      // Add code to submit the form
+      let email = formState.email;
+      let password = formState.password;
 
-    try {
-      // send login request and recieve userinfo
-      const res = await login({ email, password }).unwrap();
-      // save them
-      dispatch(setCredentials({ ...res }));
-      // go to home page
-      navigate("/");
-      // tell user
-      toast.success("Login Successful");
-    } catch (err: any) {
-      toast.error(err?.data?.message || err.error);
+      try {
+        // send login request and recieve userinfo
+        const res = await login({ email, password }).unwrap();
+        // save them
+        dispatch(setCredentials({ ...res }));
+        // go to home page
+        navigate("/");
+        // tell user
+        toast.success("Login Successful");
+      } catch (err: any) {
+        toast.error(err?.data?.message || err.error);
+      }
     }
   };
 
