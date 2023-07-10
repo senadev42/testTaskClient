@@ -1,8 +1,8 @@
 import { apiSlice } from "./apiSlice";
 
 //The explore url
-const apiTarget = process.env.API_TARGET || "http://localhost:5000";
-const EXPLORE_URL = `${apiTarget}/api/explore`;
+
+const EXPLORE_URL = `https://testtask-server.onrender.com/api/explore`;
 
 export const exploreApiSlice: any = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
