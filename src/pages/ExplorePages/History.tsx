@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useCountryHistoryMutation } from "../../slices/exploreApiSlice";
 import { RootState } from "../../store";
 
 //visual components
 import { toast } from "react-toastify";
+import Loader from "../../components/Loader";
 
 interface CountrySearch {
   callingCode: string;
@@ -50,7 +51,7 @@ const History = () => {
 
         const res = await Promise.race([
           countryHistory({ query_user_id }).unwrap(),
-          new Promise((resolve, reject) =>
+          new Promise((reject) =>
             setTimeout(() => reject(new Error("Request timed out.")), 15000)
           ),
         ]);
@@ -82,7 +83,7 @@ const History = () => {
               className={`mt-4 border-2 border-teal-200 px-4 py-2 hover:bg-teal-200`}
               onClick={apiCall}
             >
-              Fetch History
+              {isLoading ? <Loader /> : "Fetch History"}
             </button>
           </div>
 

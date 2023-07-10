@@ -16,7 +16,6 @@ import { toast } from "react-toastify";
 const Header: React.FC = () => {
   useEffect(() => {
     setIsDropdownOpen(false);
-    setIsLoggedoutDropdownOpen(false);
   }, []);
 
   useEffect(() => {
@@ -32,7 +31,6 @@ const Header: React.FC = () => {
   //both sets of drop downs
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isLoggedoutDropdownOpen, setIsLoggedoutDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -29,7 +29,7 @@ const NearMe = () => {
 
   //fetch handling
   const [position, setPosition] = useState<string | null>(null);
-  const [geolocationAvailable, setGeolocationAvailable] = useState(false); //what does this serve?
+  //const [geolocationAvailable, setGeolocationAvailable] = useState(false); //what does this serve?
   const [locationReject, setIsLocationReject] = useState(false);
 
   //input handler
@@ -57,12 +57,12 @@ const NearMe = () => {
           setIsLocationReject(true);
         }
       );
-      setGeolocationAvailable(true);
+      //  setGeolocationAvailable(true);
       console.log("Geolocation is available" + position);
       setIsLocationReject(false);
     } else {
       console.log("Geolocation is not available");
-      setGeolocationAvailable(false);
+      //  setGeolocationAvailable(false);
     }
   };
 

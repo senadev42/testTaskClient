@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Profile } from "./Profile";
 
 import { Link, useLocation } from "react-router-dom";
@@ -10,8 +10,6 @@ import Search from "./ExplorePages/Search";
 import History from "./ExplorePages/History";
 
 const Dashboard = () => {
-  const [isdropupopen, setisdropupopen] = useState(false);
-
   const [showNav, setShowNav] = useState(false);
 
   // Where are we right now?

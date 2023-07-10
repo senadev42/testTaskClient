@@ -8,18 +8,15 @@ import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
-import { RootState } from "../store";
 
 const RegisterForm: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [register, { isLoading }] = useRegisterMutation();
-
-  const { userInfo } = useSelector((state: RootState) => state.auth);
 
   const [formState, setFormState] = useState({
     username: "",

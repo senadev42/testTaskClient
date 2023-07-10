@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const Logout: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [logoutApiCall, { isLoading }] = useLogoutMutation();
+  const [logoutApiCall] = useLogoutMutation();
 
   const handleLogout = async () => {
     console.log("button clicked");
