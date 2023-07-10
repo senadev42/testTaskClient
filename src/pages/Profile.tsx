@@ -9,41 +9,27 @@ import Loader from "../components/Loader";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { useRegisterMutation } from "../slices/usersApiSlice";
+import { useUpdateUserMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { RootState } from "../store";
+
+//Profile
 export const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [register, { isLoading }] = useRegisterMutation();
+  const [updateUser, { isLoading }] = useUpdateUserMutation();
 
   const { userInfo } = useSelector((state: RootState) => state.auth);
 
   const [formState, setFormState] = useState({
     username: "",
     email: "",
-    password: "",
-    confirmPassword: "",
     errors: {
       username: "",
       email: "",
-      password: "",
-      confirmPassword: "",
     },
   });
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  // useEffect(() => {
-  //   validateForm();
-  // }, [
-  //   formState.username,
-  //   formState.email,
-  //   formState.password,
-  //   formState.confirmPassword,
-  // ]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -56,30 +42,25 @@ export const Profile = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add code to submit the form
+
+    toast.info("Updating profile");
     if (validateForm()) {
       //create body
       let name = formState.username;
-      let email = formState.email;
-      let password = formState.password;
 
       try {
-        //send register request
-        const res = await register({ name, email, password }).unwrap();
-        //set token to local storage
+        //send update request
+        const res = await updateUser({ name }).unwrap();
+        //set userinfo to local storage
         dispatch(setCredentials({ ...res }));
-        // go to home page
-        navigate("/");
+
         // tell user
-        toast.success("Registered successfully");
+        toast.success("Updated successfully");
       } catch (err: any) {
         toast.error(err?.data?.message || err.error);
       }
-
-      // Add code to submit the form
-      console.log("is valid");
-      alert("Good to go");
     } else {
-      alert("validate didn't pass");
+      toast.error("Something went wrong");
     }
   };
 
@@ -94,27 +75,6 @@ export const Profile = () => {
     // Check username
     if (!formState.username) {
       errors.username = "Username is required";
-    }
-
-    // Check email
-    if (!formState.email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
-      errors.email = "Email is invalid";
-    }
-
-    // Check password
-    if (!formState.password) {
-      errors.password = "Password is required";
-    } else if (formState.password.length < 8) {
-      errors.password = "Password must be at least 8 characters long";
-    }
-
-    // Check confirm password
-    if (!formState.confirmPassword) {
-      errors.confirmPassword = "Confirm Password is required";
-    } else if (formState.password !== formState.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
     }
 
     setFormState((prevState) => ({
@@ -149,97 +109,23 @@ export const Profile = () => {
 
   const EmailInput = (
     <div className="mb-4">
-      {/* <label className="block text-slate-600 mb-2" htmlFor="email">
-            Email
-          </label> */}
       <input
-        className={`shadow appearance-none border rounded w-[14rem] py-2 px-3 text-gray-700focus:outline-none focus:shadow-outline ${
-          formState.errors.email ? "border-red-500" : ""
-        }`}
+        className={`shadow appearance-none border rounded w-[14rem] py-2 px-3 placeholder-slate-300`}
         id="email"
         type="email"
         placeholder={userInfo.email}
         name="email"
         value={formState.email}
         onChange={handleInputChange}
+        disabled
       />
-      {formState.errors.email && (
-        <p className="text-red-500 text-xs italic">{formState.errors.email}</p>
-      )}
-    </div>
-  );
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-  const PasswordInput = (
-    <div className="mb-6 relative">
-      {/* <label className="block text-slate-600 mb-2" htmlFor="password">
-            Password
-          </label> */}
-      <div className=" flex flex-row justify-start items-center">
-        <input
-          className="shadow appearance-none border rounded  w-[14rem] py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-          id="password"
-          name="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="New Password"
-          value={formState.password}
-          onChange={handleInputChange}
-        />
-        <button
-          className="py-1 px-1 ml-2"
-          onClick={togglePasswordVisibility}
-          type="button"
-        >
-          {!showPassword ? (
-            <PiEyeClosedDuotone size={20} />
-          ) : (
-            <PiEyeDuotone size={20} />
-          )}
-        </button>
-      </div>
-      {formState.errors.password && (
-        <p className="text-red-500 text-xs italic">
-          {formState.errors.password}
-        </p>
-      )}
-
-      {/* Confirm Password */}
-      <div className=" flex flex-row justify-start items-center mt-2">
-        <input
-          className="shadow appearance-none border rounded  w-[14rem] py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline"
-          id="confirm-password"
-          name="confirmPassword"
-          type={showPassword ? "text" : "password"}
-          placeholder="Confirm New Password"
-          value={formState.confirmPassword}
-          onChange={handleInputChange}
-          style={{ display: " none !important" }}
-        />
-        <button
-          className="py-1 px-1 ml-2 appearance-none"
-          onClick={togglePasswordVisibility}
-          type="button"
-        >
-          {!showPassword ? (
-            <PiEyeClosedDuotone size={20} />
-          ) : (
-            <PiEyeDuotone size={20} />
-          )}
-        </button>
-      </div>
-      {formState.errors.confirmPassword && (
-        <p className="text-red-500 text-xs italic">
-          {formState.errors.confirmPassword}
-        </p>
-      )}
     </div>
   );
 
   return (
     <div className="flex flex-row  h-full">
       <div className="max-w-xs w-full bg-white p-8">
+        <div className="text-lg p-2 mb-4">Update your username</div>
         <form onSubmit={handleSubmit}>
           {
             //Username
@@ -250,14 +136,10 @@ export const Profile = () => {
             EmailInput
           }
           <hr className="mb-4"></hr>
-          {
-            //passwords
-            PasswordInput
-          }
           {/* Sign in Button */}
           <div className="flex items-center justify-between">
             <button
-              className="bg-black hover:bg-teal-500 text-teal-400 rounded-xs font-bold py-2 px-6 focus:outline-none focus:shadow-outline"
+              className="bg-black hover:bg-teal-500 hover:text-black text-teal-400 rounded-xs font-bold py-2 px-6 focus:outline-none focus:shadow-outline"
               type="submit"
             >
               {isLoading ? <Loader /> : "Update your Profile"}

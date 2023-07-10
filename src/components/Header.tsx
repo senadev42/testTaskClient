@@ -97,7 +97,7 @@ const Header: React.FC = () => {
             <button
               type="button"
               className=" w-full  py-4 px-12  text-sm text-gray-700 hover:text-teal-500"
-              onClick={() => alert("TODO: Implement Profile page")}
+              onClick={() => navigate("/profile")}
             >
               Profile
             </button>
