@@ -6,8 +6,7 @@ dotenv.config();
 
 console.log("Running in " + process.env.VITE_ENV);
 
-const apiTarget =
-  "https://testtask-server.onrender.com/" || process.env.API_TARGET;
+const apiTarget = process.env.API_TARGET || "http://localhost:5000";
 
 console.log("Connected to " + apiTarget + " as API");
 

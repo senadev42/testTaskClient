@@ -1,6 +1,10 @@
 import { apiSlice } from "./apiSlice";
 //The user auth url
-const USERS_URL = "/api/users";
+
+const apiTarget = process.env.API_TARGET || "http://localhost:5000";
+
+const USERS_URL = `${apiTarget}/api/users`;
+
 export const userApiSlice: any = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
