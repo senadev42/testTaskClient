@@ -4,7 +4,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log(process.env.VITE_ENV);
+console.log("Running in " + process.env.VITE_ENV);
+
+const apiTarget = process.env.API_TARGET || "http://localhost:5000";
+
+console.log("Connected to " + apiTarget + " as API");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,11 +17,7 @@ export default defineConfig({
     port: 4000,
     proxy: {
       "/api": {
-        target: `${
-          process.env.VITE_ENV == "development"
-            ? "http://localhost:5000"
-            : "https://testtask-server.onrender.com/"
-        }`,
+        target: apiTarget,
         changeOrigin: true,
       },
     },
