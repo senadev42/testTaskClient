@@ -11,6 +11,8 @@ import Search from "./ExplorePages/Search";
 const Dashboard = () => {
   const [isdropupopen, setisdropupopen] = useState(false);
 
+  const [showNav, setShowNav] = useState(false);
+
   // Where are we right now?
   const location = useLocation();
 
@@ -50,7 +52,49 @@ const Dashboard = () => {
     <div className="flex flex-row  h-screen ">
       {/* Tabs */}
 
-      <nav className=" hidden sm:flex space-y-1 bg-white w-[30%] md:w-[20%] flex flex-col justify-between pt-4 pl-4">
+      <button
+        type="button"
+        onClick={() => setShowNav(!showNav)}
+        className="fixed top-4 right-4 z-50 sm:hidden bg-gray-200 p-2 rounded-md"
+      >
+        {showNav ? (
+          <svg
+            className="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 18L18 6M6 6L18 18"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        ) : (
+          <svg
+            className="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 6H20M4 12H20M4 18H20"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
+      </button>
+
+      <nav
+        className={`fixed inset-4 bg-white z-40 transform transition-all ease-in-out duration-500 ${
+          showNav ? "translate-x-0" : "-translate-x-full"
+        } sm:static sm:translate-x-0 sm:opacity-100 sm:bg-transparent sm:w-auto sm:flex sm:flex-col sm:space-y-1 sm:justify-between sm:pt-4 sm:pl-4`}
+      >
         {/* the top part */}
         <div>
           <div className="flex-shrink-0 pl-4 py-4 ">
@@ -66,14 +110,54 @@ const Dashboard = () => {
             Explore
           </p>
           <ul>
+            <Link to="/dashboard/search">
+              <li>
+                <button
+                  className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm
+                 text-gray-500 transition duration-200 ease-in-out transform rounded-lg 
+                 focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
+                  onClick={() => {
+                    setShowNav(!showNav);
+                  }}
+                >
+                  <span className="ml-4">Search</span>
+                </button>
+              </li>
+            </Link>
+            <Link to="/dashboard/nearme">
+              <li>
+                <button
+                  className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm
+                 text-gray-500 transition duration-200 ease-in-out transform rounded-lg 
+                 focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
+                  onClick={() => {
+                    setShowNav(!showNav);
+                  }}
+                >
+                  <span className="ml-4">Near Me</span>
+                </button>
+              </li>
+            </Link>
             <li>
-              <a
-                className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="/dashboard/search"
-              >
-                <span className="ml-4">Search</span>
-              </a>
+              <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
+                <span className="ml-4">History</span>
+              </div>
             </li>
+          </ul>
+          {/*
+           Tools
+           */}
+          {/* <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
+            Explore
+          </p>
+          <ul>
+            <Link to="/dashboard/search">
+              <li>
+                <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
+                  <span className="ml-4">Search</span>
+                </div>
+              </li>
+            </Link>
             <Link to="/dashboard/nearme">
               <li>
                 <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
@@ -82,55 +166,9 @@ const Dashboard = () => {
               </li>
             </Link>
             <li>
-              <a
-                className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="/dashboard/history"
-              >
+              <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
                 <span className="ml-4">History</span>
-              </a>
-            </li>
-          </ul>
-          {/*
-           Tools
-           */}
-          {/* <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
-            Tools
-          </p>
-          <ul>
-            <li>
-              <a
-                className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="#"
-              >
-                <span className="ml-4">Currencies</span>
-              </a>
-            </li>
-            <li>
-              <a
-                className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="#"
-              >
-                <span className="ml-4">Hotspots</span>
-                <span className="inline-flex ml-auto items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-500">
-                  25
-                </span>
-              </a>
-            </li>
-            <li>
-              <a
-                className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="#"
-              >
-                <span className="ml-4">Checklist</span>
-              </a>
-            </li>
-            <li>
-              <a
-                className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                href="#"
-              >
-                <span className="ml-4">TLD</span>
-              </a>
+              </div>
             </li>
           </ul> */}
         </div>
@@ -138,16 +176,13 @@ const Dashboard = () => {
         {/* the bottom part */}
         <div className="pb-4">
           {" "}
-          <hr></hr>
+          {/* <hr></hr> */}
           <ul>
             <Link to="/dashboard/profile">
               <li>
-                <a
-                  className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
-                  href="#"
-                >
+                <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
                   <span className="ml-4">Profile</span>
-                </a>
+                </div>
               </li>
             </Link>
 
@@ -164,7 +199,7 @@ const Dashboard = () => {
       </nav>
 
       {/* The overflow - Y Tab */}
-      <div className="flex-1 h-full overflow-y-auto p-6">
+      <div className="flex-1 h-full overflow-y-auto overflow-x-hidden p-6  ">
         {content}
         {/* teams */}
         {/* otherthing */}
