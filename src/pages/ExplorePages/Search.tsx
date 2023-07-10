@@ -67,14 +67,18 @@ const Search = () => {
         //1. setting body variables
         let countryCode = iso3166Data[selectedOption.index].isoCode;
         let query_user_id = userInfo._id;
-        //let countryCode = "ET";
+        let authToken = userInfo.token;
 
         console.log(
           `Attempting to fetch with ${countryCode} and ${query_user_id}`
         );
 
         //2. Make request and fetch data
-        const res = await countryData({ query_user_id, countryCode }).unwrap();
+        const res = await countryData({
+          query_user_id,
+          countryCode,
+          authToken,
+        }).unwrap();
         //log response
         console.log(res.data);
 
@@ -84,9 +88,6 @@ const Search = () => {
         console.log(`Fetched with ${countryCode} and ${query_user_id}`);
 
         toast.success(`Found ${selectedOption.value} `);
-
-        console.log("Local State: ");
-        console.log(countryDetails);
       } catch (err: any) {
         toast.error(err.message);
       }

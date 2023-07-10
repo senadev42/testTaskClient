@@ -80,9 +80,10 @@ const NearMe = () => {
       //1. Set Body Variables
       let _id = userInfo._id;
       let coords = position;
+      let authToken = userInfo.token;
 
       //2. Send off request
-      const res = await nearbyCities({ _id, coords }).unwrap();
+      const res = await nearbyCities({ _id, coords, authToken }).unwrap();
 
       //3. Checking for and throwing errors
       if (res === undefined) {

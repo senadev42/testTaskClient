@@ -40,6 +40,7 @@ const History = () => {
   const apiCall = async () => {
     try {
       let query_user_id = userInfo._id;
+      let authToken = userInfo.token;
 
       if (!navigator.onLine) {
         toast.error("No internet connection");
@@ -50,7 +51,7 @@ const History = () => {
         toast.info("Fetching History...");
 
         const res = await Promise.race([
-          countryHistory({ query_user_id }).unwrap(),
+          countryHistory({ query_user_id, authToken }).unwrap(),
           new Promise((reject) =>
             setTimeout(() => reject(new Error("Request timed out.")), 15000)
           ),
