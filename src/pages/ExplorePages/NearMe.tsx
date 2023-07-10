@@ -28,6 +28,7 @@ const NearMe = () => {
   //fetch handling
   const [position, setPosition] = useState<string | null>(null);
   const [geolocationAvailable, setGeolocationAvailable] = useState(false);
+  const [locationReject, setIsLocationReject] = useState(false);
 
   const fetchCities = async () => {
     //location permission asking
@@ -45,10 +46,12 @@ const NearMe = () => {
         },
         (err) => {
           console.error(err);
+          setIsLocationReject(true);
         }
       );
       setGeolocationAvailable(true);
       console.log("Geolocation is available" + position);
+      setIsLocationReject(false);
     } else {
       console.log("Geolocation is not available");
       setGeolocationAvailable(false);
@@ -103,18 +106,20 @@ const NearMe = () => {
           </div> */}
           {/* What's near me button */}
           {/* TODO: slider to decide distance */}
-          <div>
+          <div className=" flex flex-col items-center">
             <button
               className={`mt-4 border-2 border-teal-200 px-4 py-2 hover:bg-teal-200`}
               onClick={fetchCities}
             >
               What's Near Me?
             </button>
-            {/* {geolocationAvailable ? (
-              <p className="text-xs mt-2">You need to turn on location 😢 </p>
+            {locationReject ? (
+              <p className="text-xs mt-2 text-center bg-red-100">
+                You need to turn on location to see what's near you.
+              </p>
             ) : (
               " "
-            )} */}
+            )}
           </div>
 
           {/* Cities Near You */}
