@@ -11,7 +11,14 @@ export const exploreApiSlice: any = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
-        })
+        }),
+        countryData: builder.mutation({
+            query: (data) => ({
+                url: `${EXPLORE_URL}/country-data`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
     }),
 });
-export const { useNearbyCitiesMutation } = exploreApiSlice;
+export const { useNearbyCitiesMutation, useCountryDataMutation } = exploreApiSlice;
