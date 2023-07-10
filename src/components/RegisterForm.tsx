@@ -34,16 +34,16 @@ const RegisterForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  useEffect(() => {
-    validateForm();
-  }, [
-    [
-      formState.username,
-      formState.email,
-      formState.password,
-      formState.confirmPassword,
-    ],
-  ]);
+  // useEffect(() => {
+  //   validateForm();
+  // }, [
+  //   [
+  //     formState.username,
+  //     formState.email,
+  //     formState.password,
+  //     formState.confirmPassword,
+  //   ],
+  // ]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -126,7 +126,7 @@ const RegisterForm: React.FC = () => {
     <div className="mb-4">
       <input
         className={`shadow appearance-none border rounded  w-[14rem] py-2 px-3
-         text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+         text-gray-700 focus:outline-none focus:shadow-outline ${
            formState.errors.username ? "border-red-500" : ""
          }`}
         id="username"
@@ -207,7 +207,7 @@ const RegisterForm: React.FC = () => {
       <div className=" flex flex-row justify-start items-center mt-2">
         <input
           className="shadow appearance-none border rounded  w-[14rem] py-2 px-3 
-          text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          text-gray-700 focus:outline-none focus:shadow-outline"
           id="confirm-password"
           name="confirmPassword"
           type={showPassword ? "text" : "password"}
