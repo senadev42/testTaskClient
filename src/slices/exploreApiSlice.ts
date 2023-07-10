@@ -1,14 +1,11 @@
 import { apiSlice } from "./apiSlice";
 
-//enviroment variables
-import dotenv from "dotenv";
-dotenv.config();
+const isDevelopment =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1";
 
-//The explore url
-const remoteURL =
-  process.env.VITE_ENV == "development"
-    ? "https://testtask-server.onrender.com"
-    : "";
+//The user auth url
+const remoteURL = !isDevelopment ? "https://testtask-server.onrender.com" : "";
 
 const EXPLORE_URL = `${remoteURL}/api/explore`;
 

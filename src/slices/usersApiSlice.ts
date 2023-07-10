@@ -1,10 +1,11 @@
 import { apiSlice } from "./apiSlice";
 
+const isDevelopment =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1";
+
 //The user auth url
-const remoteURL =
-  process.env.VITE_ENV == "development"
-    ? "https://testtask-server.onrender.com"
-    : "";
+const remoteURL = !isDevelopment ? "https://testtask-server.onrender.com" : "";
 
 const USERS_URL = `${remoteURL}/api/users`;
 
