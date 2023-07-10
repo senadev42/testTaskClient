@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const PageNotFound = () => {
   return (
@@ -14,9 +15,9 @@ const PageNotFound = () => {
             </p>
           </div>
           <div className="flex justify-center gap-3 mt-10">
-            <a
+            <Link
+              to="/"
               className="inline-flex items-center text-sm font-semibold leading-6 text-white"
-              href="/"
             >
               <span> Go back Home </span>
               <svg
@@ -34,7 +35,7 @@ const PageNotFound = () => {
                   d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
                 ></path>
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
