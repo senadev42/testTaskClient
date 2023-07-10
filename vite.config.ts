@@ -1,14 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import dotenv from "dotenv";
 
+//enviroment variables
+import dotenv from "dotenv";
 dotenv.config();
 
-console.log("Running in " + process.env.VITE_ENV);
-
-const apiTarget = process.env.API_TARGET || "http://localhost:5000";
-
-console.log("Connected to " + apiTarget + " as API");
+console.log("Running in " + process.env.VITE_ENV + " mode.");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,7 +14,7 @@ export default defineConfig({
     port: 4000,
     proxy: {
       "/api": {
-        target: apiTarget,
+        target: "http://localhost:5000",
         changeOrigin: true,
       },
     },

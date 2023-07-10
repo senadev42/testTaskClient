@@ -1,7 +1,12 @@
 import { apiSlice } from "./apiSlice";
-//The user auth url
 
-const USERS_URL = `https://testtask-server.onrender.com/api/users`;
+//The user auth url
+const remoteURL =
+  process.env.VITE_ENV == "development"
+    ? "https://testtask-server.onrender.com"
+    : "";
+
+const USERS_URL = `${remoteURL}/api/users`;
 
 export const userApiSlice: any = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

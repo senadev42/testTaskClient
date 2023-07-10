@@ -1,8 +1,16 @@
 import { apiSlice } from "./apiSlice";
 
-//The explore url
+//enviroment variables
+import dotenv from "dotenv";
+dotenv.config();
 
-const EXPLORE_URL = `https://testtask-server.onrender.com/api/explore`;
+//The explore url
+const remoteURL =
+  process.env.VITE_ENV == "development"
+    ? "https://testtask-server.onrender.com"
+    : "";
+
+const EXPLORE_URL = `${remoteURL}/api/explore`;
 
 export const exploreApiSlice: any = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
