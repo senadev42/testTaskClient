@@ -12,8 +12,6 @@ To run the application on your machine, you need to have Node.js, npm and Git in
 
    ````
    git clone https://github.com/senadev42/testTaskClient.git
-   ```
-
    ````
 
 2. Navigate to the project directory using:
