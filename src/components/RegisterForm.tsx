@@ -77,12 +77,8 @@ const RegisterForm: React.FC = () => {
       } catch (err: any) {
         toast.error(err?.data?.message || err.error);
       }
-
-      // Add code to submit the form
-      console.log("is valid");
-      alert("Good to go");
     } else {
-      alert("validate didn't pass");
+      console.log("validate didn't pass");
     }
   };
 
@@ -132,9 +128,10 @@ const RegisterForm: React.FC = () => {
   const UserNameInput = (
     <div className="mb-4">
       <input
-        className={`shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-          formState.errors.username ? "border-red-500" : ""
-        }`}
+        className={`shadow appearance-none border rounded  w-[14rem] py-2 px-3
+         text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+           formState.errors.username ? "border-red-500" : ""
+         }`}
         id="username"
         type="text"
         placeholder="Username"
@@ -156,7 +153,7 @@ const RegisterForm: React.FC = () => {
           Email
         </label> */}
       <input
-        className={`shadow appearance-none border rounded w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`shadow appearance-none border rounded w-[14rem] py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline ${
           formState.errors.email ? "border-red-500" : ""
         }`}
         id="email"
@@ -182,7 +179,8 @@ const RegisterForm: React.FC = () => {
         </label> */}
       <div className=" flex flex-row justify-start items-center">
         <input
-          className="shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded  w-[14rem] py-2 px-3 
+          text-gray-700 focus:outline-none focus:shadow-outline"
           id="password"
           name="password"
           type={showPassword ? "text" : "password"}
@@ -211,7 +209,8 @@ const RegisterForm: React.FC = () => {
       {/* Confirm Password */}
       <div className=" flex flex-row justify-start items-center mt-2">
         <input
-          className="shadow appearance-none border rounded  w-[14rem] py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded  w-[14rem] py-2 px-3 
+          text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="confirm-password"
           name="confirmPassword"
           type={showPassword ? "text" : "password"}
