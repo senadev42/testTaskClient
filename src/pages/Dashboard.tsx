@@ -7,6 +7,7 @@ import Logout from "../components/Logout";
 // Subpages
 import NearMe from "./ExplorePages/NearMe";
 import Search from "./ExplorePages/Search";
+import History from "./ExplorePages/History";
 
 const Dashboard = () => {
   const [isdropupopen, setisdropupopen] = useState(false);
@@ -27,8 +28,16 @@ const Dashboard = () => {
       content = <Search />;
       break;
 
-    default:
+    case "/dashboard/history":
+      content = <History />;
+      break;
+
+    case "/dashboard/profile":
       content = <Profile />;
+      break;
+
+    default:
+      content = <Search />;
       break;
   }
 
@@ -42,8 +51,16 @@ const Dashboard = () => {
         content = <Search />;
         break;
 
-      default:
+      case "/dashboard/history":
+        content = <History />;
+        break;
+
+      case "/dashboard/profile":
         content = <Profile />;
+        break;
+
+      default:
+        content = <Search />;
         break;
     }
   }, [location.pathname]);
@@ -138,11 +155,14 @@ const Dashboard = () => {
                 </button>
               </li>
             </Link>
-            <li>
-              <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
-                <span className="ml-4">History</span>
-              </div>
-            </li>
+            <Link to="/dashboard/history">
+              {" "}
+              <li>
+                <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
+                  <span className="ml-4">History</span>
+                </div>
+              </li>
+            </Link>
           </ul>
           {/*
            Tools
