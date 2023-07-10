@@ -1,5 +1,7 @@
 # README for Test Task Client
 
+Note: The server for this site is hosted on testtask-server.onrender.com which got inactive after less than 15 minutes of activity so the first request will take a while as the web server spins up.
+
 This is the client-side of a full-stack web application that allows users to register, log in, and search for cities using the GeoDB Cities API. The application was built using the React.js library and interacts with the backend API using Axios HTTP client.
 
 ## Getting Started
@@ -29,11 +31,20 @@ To run the application on your machine, you need to have Node.js, npm and Git in
 4. Start the development server using the command:
 
    ```
-   npm start
+   npm run dev
    ```
 
-   This will run the application on `http://localhost:4000`.
-   Sure, here's the updated version without links:
+   This will run the application on `http://localhost:4000`. This can be changed in vite.config.ts.
+
+
+## Usage
+
+The website has three major pages. Search, NearMe and History.
+
+1. Search: Enter a country name and select a country from the drop down.
+2. NearMe: Press the near me button upon which the website will ask your browser for location permission. Provided permission and the page will load a list of cities near the area.
+3. History: Will provide a list of all countries searched in the search page.
+
 
 ## Technologies Used
 
@@ -48,15 +59,8 @@ To run the application on your machine, you need to have Node.js, npm and Git in
 ### Development Dependencies
 
 - TypeScript - A typed superset of JavaScript that compiles to plain JavaScript
-- ESLint - A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript
-- PostCSS - A tool for transforming CSS with JavaScript
 - Tailwind CSS - A utility-first CSS framework for rapid UI development
 - Vite - A build tool that aims to provide a faster and leaner development experience for modern web projects
-- React Refresh - A feature that allows React components to be reloaded without losing their state
-- Autoprefixer - A plugin that adds vendor prefixes to CSS rules
-- ESLint React Hooks Plugin - A plugin that enforces the rules of Hooks in React
-- TypeScript ESLint Parser - A parser that allows ESLint to understand TypeScript syntax
-- Vite React Plugin - A plugin that enables Vite to handle JSX syntax in `.tsx` files.
 
 ## Known Issues
 
